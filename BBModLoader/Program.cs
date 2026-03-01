@@ -1,16 +1,40 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Diagnostics;
+using System.Reflection;
+using System.Xml.Linq;
 using BBmodLauncher2;
 
-Console.WriteLine("BBCF Mod Launcher Ver 2.0");
+Console.WriteLine("                   BBCF Mod Loader Ver 2.0                    ");
+Console.WriteLine("______________________________________________________________________");
 settingshandler settingshand = new settingshandler();
 pathchecker pathchecker = new pathchecker();
+filehandler filehandler = new filehandler();
+Process[] Processes = null;
 string[] settings = settingshand.checksettings();
 bool newset = false; 
 
+
 if(!File.Exists("settings.txt") || File.ReadAllLines("settings.txt").Length == 0) newset = true;
 
-if (newset || settings[0] == "")
+if (settings[3] == "y")
+{
+    Console.WriteLine("Modded game found");
+    Console.WriteLine("resetting...");
+    goto vani;
+
+}
+
+if (!newset)
+{ 
+    Console.WriteLine("Press N to change file locations or press any other key to continue...");
+
+    if(Console.ReadKey(true).Key == ConsoleKey.N) newset = true;
+}
+
+
+
+if (newset || settings[0] == "Mod folder:")
 {
     Console.WriteLine("Please enter Mod folder path (folder named 'data')");
     readmod:
@@ -22,7 +46,8 @@ if (newset || settings[0] == "")
     }
     settingshand.writesettings("mod", entry);
 }
-if (newset || settings[1] == "")
+
+if (newset || settings[1] == "BBCF folder: ")
 {
     Console.WriteLine("Please enter BBCF folder path (folder named 'data')");
     readbb:
@@ -34,9 +59,9 @@ if (newset || settings[1] == "")
     }
     settingshand.writesettings("bbcf", entry);
 }
-if (newset || settings[2] == "")
+if (newset || settings[2] == "Steam folder: ")
 {
-    Console.WriteLine("Please enter Steam folder path (folder named 'data')");
+    Console.WriteLine("Please enter Steam folder path (folder where 'Steam.exe' is located)");
     readsteam:
     string entry = Console.ReadLine();
     if (pathchecker.checksteam(entry))
@@ -46,14 +71,41 @@ if (newset || settings[2] == "")
     }
     settingshand.writesettings("steam", entry);
 }
-if (newset || settings[3] == "")settingshand.writesettings("modded?", "n");
+if (newset || settings[3] == "modded?: ")settingshand.writesettings("modded?", "n");
 
 
+filehandler.swapfiles();
+if(File.ReadAllLines("./backup.txt").Length != 0) settingshand.writesettings("modded?", "y");
 
 
-foreach (string s in settings)
+Process.Start(settings[2] +"\\steam.exe",@"steam://rungameid/586140");
+
+Processes = Process.GetProcessesByName("BBCF");
+Console.WriteLine(Processes.Length);
+
+Console.WriteLine("Starting BBCF");
+
+while (Processes.Length < 1)
 {
-    Console.WriteLine(s);
+    Processes = Process.GetProcessesByName("BBCF");
+    Console.WriteLine(".");
+    Thread.Sleep(3000);
 }
+Console.WriteLine(".");
+Console.WriteLine("BBCF is running...");
 
-Console.Read();
+Processes[0].WaitForExit();
+
+vani:
+
+filehandler.resetfiles();
+
+settingshand.writesettings("modded?", "n");
+
+
+Console.WriteLine("Vanilla restored.");
+Console.WriteLine("Zeiyah.");
+Thread.Sleep(3000);
+
+
+

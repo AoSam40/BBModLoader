@@ -7,4 +7,10 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Content Include="bin\Debug\net9.0\integrity.txt" />
+      <Content Include="bin\Debug\net9.0\settings.txt" />
+      <Content Include="obj\integrity.txt" />
+    </ItemGroup>
+
 </Project>

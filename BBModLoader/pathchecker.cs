@@ -8,12 +8,19 @@ public class pathchecker
     public bool checksturcture(string path)
     {
         string[] integrity = File.ReadAllLines("integrity.txt");
+        int max = integrity.Length;
+        float i = 0;
+        float percent = 0;
 
         foreach (string s in integrity)
         {
-            if (!Directory.Exists(path + "\\" +s)) return false;
+            if (File.Exists(path + s.Replace("\\BlazBlue Centralfiction\\data", ""))) i++; 
         }
-        return true;
+        percent = i/max*100;
+        
+        Console.WriteLine("Integrity: " + percent + "%" );
+        if (percent > 75) return true;
+        return false;
     }
 
     public bool checksteam(string path)

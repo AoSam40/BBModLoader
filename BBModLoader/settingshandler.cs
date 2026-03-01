@@ -13,10 +13,10 @@ public class settingshandler
         else
         {
             string[] settinglines = File.ReadAllLines(setdir);
-            settinglines[0].Remove(0,12);
-            settinglines[1].Remove(0,13);
-            settinglines[2].Remove(0,14);
-            settinglines[3].Remove(0,9);
+            settinglines[0] = settinglines[0].Replace("Mod folder: ", "");
+            settinglines[1] = settinglines[1].Replace("BBCF folder: ", "");
+            settinglines[2] = settinglines[2].Replace("Steam folder: ", "");
+            settinglines[3] = settinglines[3].Replace("modded?: ", "");
             return settinglines;
         }
     }
