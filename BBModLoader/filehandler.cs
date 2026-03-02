@@ -18,23 +18,30 @@ public class filehandler
     
     public void swapfiles()
     {
+        settings = settingshand.checksettings();
+        modpath = settings[0]; 
+        gamepath = settings[1];
         
         if (!Directory.Exists(temppath)) Directory.CreateDirectory(temppath);
-        Console.WriteLine(modpath);
+        Console.WriteLine("filehandler.cs: " + modpath);
         
         
         
-        List<String> modfiles = Directory.GetFileSystemEntries(modpath).ToList();
-        Console.WriteLine(modfiles.Count);
+        String[] modfiles = Directory.GetFiles(modpath,"*.pac",searchOption:SearchOption.AllDirectories);
+        Console.WriteLine("filehandler.cs: " + modfiles.Length);
       
 
         foreach (string filename in modfiles)
         {
-            Console.WriteLine(filename);
+            Console.WriteLine("filehandler.cs: moving " + filename);
             try
             {
                 if (File.Exists(filename.Replace(modpath, gamepath))) //does the gamefile with the same name as modfile exist?      
                 {
+                    string dirtemp = Path.GetDirectoryName(filename.Replace(modpath, temppath));
+                    
+                    if(!Directory.Exists(dirtemp)) Directory.CreateDirectory(dirtemp);
+                    
                     File.Move(filename.Replace(modpath, gamepath), filename.Replace(modpath, temppath)); // move from game to temp
                     File.Move(filename, filename.Replace(modpath, gamepath)); // move from mod  to game
                     movedfiles.Add(filename.Replace(modpath, gamepath));
@@ -47,6 +54,7 @@ public class filehandler
             }
             catch
             {
+                Console.WriteLine("filehandler.cs: FAILED TO MOVE " + filename);
                   resetfiles();
                   break;
             }
@@ -54,24 +62,30 @@ public class filehandler
         }
         if (!File.Exists("./backup.txt")) File.Create("./backup.txt");
         File.WriteAllLines("./backup.txt", movedfiles);
-        
-        
-        
-        
     }
+
+ 
     public void resetfiles()
     {
+        
         movedfiles = File.ReadLines("./backup.txt").ToList();
         foreach (string filename in movedfiles)
         {
-            if (File.Exists(filename.Replace(gamepath, temppath)))
+            try
             {
-                File.Move(filename, filename.Replace(gamepath, modpath));   
-                File.Move(filename.Replace(gamepath,temppath), filename);   
+                if (File.Exists(filename.Replace(gamepath, temppath)))
+                {
+                    File.Move(filename, filename.Replace(gamepath, modpath));
+                    File.Move(filename.Replace(gamepath, temppath), filename);
+                }
+                else
+                {
+                    File.Move(filename, filename.Replace(gamepath, modpath));
+                }
             }
-            else
+            catch
             {
-                File.Move(filename, filename.Replace(gamepath, modpath));
+                Console.WriteLine("filehandler.cs: RESET FAILED, FAILED TO MOVE " + filename);
             }
         }
         

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BBModLoader")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+290be2ca62c744472c724d6c3959ed4f838bc37d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81327858a8caf9a9c48066c63ab6e6982ffedc32")]
 [assembly: System.Reflection.AssemblyProductAttribute("BBModLoader")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BBModLoader")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

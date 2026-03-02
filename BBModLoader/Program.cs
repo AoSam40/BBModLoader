@@ -71,17 +71,21 @@ if (newset || settings[2] == "Steam folder: ")
     }
     settingshand.writesettings("steam", entry);
 }
-if (newset || settings[3] == "modded?: ")settingshand.writesettings("modded?", "n");
+if (newset || settings[3] == "modded?: ") settingshand.writesettings("modded?", "n");
 
+
+Thread.BeginCriticalRegion();
 
 filehandler.swapfiles();
+
+Thread.EndCriticalRegion();
+
 if(File.ReadAllLines("./backup.txt").Length != 0) settingshand.writesettings("modded?", "y");
 
 
 Process.Start(settings[2] +"\\steam.exe",@"steam://rungameid/586140");
 
 Processes = Process.GetProcessesByName("BBCF");
-Console.WriteLine(Processes.Length);
 
 Console.WriteLine("Starting BBCF");
 
