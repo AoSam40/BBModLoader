@@ -17,7 +17,13 @@ bool newset = false;
 
 if(!File.Exists("settings.txt") || File.ReadAllLines("settings.txt").Length == 0) newset = true;
 
-if (settings[3] == "y")
+
+if (Directory.Exists(".\\temp"))
+{
+    if (Directory.GetFiles(".\\temp", "*.*", SearchOption.AllDirectories).Length != 0) settings[3] = "y";
+}
+
+if (settings[3] == "y") 
 {
     Console.WriteLine("Modded game found");
     Console.WriteLine("resetting...");
@@ -82,7 +88,7 @@ filehandler.swapfiles();
 
 Thread.EndCriticalRegion();
 
-if(File.ReadAllLines("./backup.txt").Length != 0) settingshand.writesettings("modded?", "y");
+if(File.ReadAllLines(".\\backup.txt").Length != 0) settingshand.writesettings("modded?", "y");
 
 
 Process.Start(settings[2] +"\\steam.exe",@"steam://rungameid/586140");

@@ -11,7 +11,7 @@ public class filehandler
     
     private string modpath = settings[0];
     private string gamepath = settings[1];
-    private string temppath = "./temp";
+    private string temppath = ".\\temp";
     List<String> movedfiles = new List<String>();   
     List<String> modfiles = new List<string>();
     
@@ -22,6 +22,7 @@ public class filehandler
         modpath = settings[0]; 
         gamepath = settings[1];
         
+        if (!File.Exists(".\\backup.txt")) File.Create(".\\backup.txt");
         if (!Directory.Exists(temppath)) Directory.CreateDirectory(temppath);
         Console.WriteLine("filehandler.cs: " + modpath);
         
@@ -60,23 +61,30 @@ public class filehandler
             }
 
         }
-        if (!File.Exists("./backup.txt")) File.Create("./backup.txt");
-        File.WriteAllLines("./backup.txt", movedfiles);
+        File.WriteAllLines(".\\backup.txt", movedfiles);
     }
 
- 
+
     public void resetfiles()
     {
-        
-        movedfiles = File.ReadLines("./backup.txt").ToList();
-        foreach (string filename in movedfiles)
+
+        if (File.Exists(".\\backup.txt")) movedfiles = File.ReadLines(".\\backup.txt").ToList();
+        if(movedfiles.Count == 0) movedfiles = Directory.GetFiles(temppath, "*.pac", searchOption: SearchOption.AllDirectories).ToList();
+        foreach (string file in movedfiles)
         {
+            Console.WriteLine("filehandler.cs: moving " + file);
+            string filename = file.Replace(temppath, gamepath);
             try
             {
                 if (File.Exists(filename.Replace(gamepath, temppath)))
                 {
                     File.Move(filename, filename.Replace(gamepath, modpath));
                     File.Move(filename.Replace(gamepath, temppath), filename);
+
+                    //Console.WriteLine("filehandler.cs: moving from " + filename + " to " +
+                                     // filename.Replace(gamepath, modpath));
+                    //Console.WriteLine("filehandler.cs: moving from " + filename.Replace(gamepath, temppath) +
+                        //" to " + filename);
                 }
                 else
                 {
@@ -85,7 +93,7 @@ public class filehandler
             }
             catch
             {
-                Console.WriteLine("filehandler.cs: RESET FAILED, FAILED TO MOVE " + filename);
+                Console.WriteLine("filehandler.cs: RESET FAILED, FAILED TO MOVE " + file);
             }
         }
         

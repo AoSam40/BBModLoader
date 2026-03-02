@@ -8,7 +8,7 @@ public class settingshandler
         if (!File.Exists(setdir) || File.ReadAllLines("settings.txt").Length == 0)
         {
             File.Create(setdir).Close();
-            return new string[0];
+            return new string[4];
         }
         else
         {
