@@ -14,7 +14,8 @@ public class pathchecker
 
         foreach (string s in integrity)
         {
-            if (File.Exists(path + s.Replace("\\BlazBlue Centralfiction\\data", ""))) i++; 
+            string g = s.Replace('\\', '/');
+            if (File.Exists(path + g.Replace("/BlazBlue Centralfiction/data", ""))) i++; 
         }
         percent = i/max*100;
         
@@ -25,7 +26,7 @@ public class pathchecker
 
     public bool checksteam(string path)
     {
-        if (Directory.Exists(path + "steam.exe")) return true;
+        if (Directory.Exists(path + "steam.sh")) return true;
         return false;
     }
 }

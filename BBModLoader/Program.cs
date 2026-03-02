@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using BBmodLauncher2;
 
-if (!File.Exists(".\\integrity.txt"))
+if (!File.Exists("./integrity.txt"))
 {
     Console.WriteLine("Integrity file not found, make sure it exists in the same folder as this program.");
     goto End;
@@ -23,9 +23,9 @@ bool newset = false;
 if(!File.Exists("settings.txt") || File.ReadAllLines("settings.txt").Length == 0) newset = true;
 
 
-if (Directory.Exists(".\\temp"))
+if (Directory.Exists("./temp"))
 {
-    if (Directory.GetFiles(".\\temp", "*.*", SearchOption.AllDirectories).Length != 0) settings[3] = "y";
+    if (Directory.GetFiles("./temp", "*.*", SearchOption.AllDirectories).Length != 0) settings[3] = "y";
 }
 
 if (settings[3] == "y") 
@@ -51,7 +51,7 @@ if (newset || settings[0] == "Mod folder:"|| !Directory.Exists(settings[0]))
     Console.WriteLine("Please enter Mod folder path (folder named 'data')");
     readmod:
     string entry = Console.ReadLine();
-    if (!entry.Contains("\\data"))
+    if (!entry.Contains("/data"))
     {
         Console.WriteLine("make sure it is a folder existing folder and named 'data'");
         goto readmod;
@@ -93,10 +93,10 @@ filehandler.swapfiles();
 
 Thread.EndCriticalRegion();
 
-if(File.ReadAllLines(".\\backup.txt").Length != 0) settingshand.writesettings("modded?", "y");
+if(File.ReadAllLines("./backup.txt").Length != 0) settingshand.writesettings("modded?", "y");
 
 
-Process.Start(settings[2] +"\\steam.exe",@"steam://rungameid/586140");
+Process.Start(settings[2] +"/steam.exe",@"steam://rungameid/586140");
 
 Processes = Process.GetProcessesByName("BBCF");
 

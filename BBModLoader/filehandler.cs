@@ -11,7 +11,7 @@ public class filehandler
     
     private string modpath = settings[0];
     private string gamepath = settings[1];
-    private string temppath = ".\\temp";
+    private string temppath = "./temp";
     List<String> movedfiles = new List<String>();   
     List<String> modfiles = new List<string>();
     
@@ -22,7 +22,7 @@ public class filehandler
         modpath = settings[0]; 
         gamepath = settings[1];
         
-        if (!File.Exists(".\\backup.txt")) File.Create(".\\backup.txt").Close();
+        if (!File.Exists("./backup.txt")) File.Create("./backup.txt").Close();
         if (!Directory.Exists(temppath)) Directory.CreateDirectory(temppath);
         Console.WriteLine("filehandler.cs: " + modpath);
         
@@ -61,14 +61,14 @@ public class filehandler
             }
 
         }
-        File.WriteAllLines(".\\backup.txt", movedfiles);
+        File.WriteAllLines("./backup.txt", movedfiles);
     }
 
 
     public void resetfiles()
     {
 
-        if (File.Exists(".\\backup.txt")) movedfiles = File.ReadLines(".\\backup.txt").ToList();
+        if (File.Exists("./backup.txt")) movedfiles = File.ReadLines("./backup.txt").ToList();
         if(movedfiles.Count == 0) movedfiles = Directory.GetFiles(temppath, "*.pac", searchOption: SearchOption.AllDirectories).ToList();
         foreach (string file in movedfiles)
         {
