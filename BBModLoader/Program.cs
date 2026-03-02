@@ -34,14 +34,15 @@ if (!newset)
 
 
 
-if (newset || settings[0] == "Mod folder:")
+if (newset || settings[0] == "Mod folder:"|| !Directory.Exists(settings[0]))
 {
+    if(!Directory.Exists(settings[0]) && !newset) Console.WriteLine("Mod folder not found");
     Console.WriteLine("Please enter Mod folder path (folder named 'data')");
     readmod:
     string entry = Console.ReadLine();
     if (!entry.Contains("\\data"))
     {
-        Console.WriteLine("make sure it is a folder named 'data'");
+        Console.WriteLine("make sure it is a folder existing folder and named 'data'");
         goto readmod;
     }
     settingshand.writesettings("mod", entry);
@@ -72,6 +73,7 @@ if (newset || settings[2] == "Steam folder: ")
     settingshand.writesettings("steam", entry);
 }
 if (newset || settings[3] == "modded?: ") settingshand.writesettings("modded?", "n");
+
 
 
 Thread.BeginCriticalRegion();
