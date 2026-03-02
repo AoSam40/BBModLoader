@@ -5,6 +5,11 @@ using System.Reflection;
 using System.Xml.Linq;
 using BBmodLauncher2;
 
+if (!File.Exists(".\\integrity.txt"))
+{
+    Console.WriteLine("Integrity file not found, make sure it exists in the same folder as this program.");
+    goto End;
+}
 Console.WriteLine("                   BBCF Mod Loader Ver 2.0                    ");
 Console.WriteLine("______________________________________________________________________");
 settingshandler settingshand = new settingshandler();
@@ -117,6 +122,8 @@ settingshand.writesettings("modded?", "n");
 
 Console.WriteLine("Vanilla restored.");
 Console.WriteLine("Zeiyah.");
+
+End:
 Thread.Sleep(3000);
 
 

@@ -22,7 +22,7 @@ public class filehandler
         modpath = settings[0]; 
         gamepath = settings[1];
         
-        if (!File.Exists(".\\backup.txt")) File.Create(".\\backup.txt");
+        if (!File.Exists(".\\backup.txt")) File.Create(".\\backup.txt").Close();
         if (!Directory.Exists(temppath)) Directory.CreateDirectory(temppath);
         Console.WriteLine("filehandler.cs: " + modpath);
         
