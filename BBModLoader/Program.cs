@@ -97,7 +97,7 @@ if(File.ReadAllLines("./backup.txt").Length != 0) settingshand.writesettings("mo
 
 settings = settingshand.checksettings();
 
-Process.Start(settings[2] +"/steam.exe",@"steam://rungameid/586140");
+Process.Start(settings[2] +"/steam.sh",@"steam://rungameid/586140");
 
 Processes = Process.GetProcessesByName("BBCF");
 
