@@ -2,10 +2,10 @@
 
 public class settingshandler
 {
-    private string setdir = "settings.txt";
+    private string setdir = "./settings.txt";
     public string[] checksettings()
     {
-        if (!File.Exists(setdir) || File.ReadAllLines("settings.txt").Length == 0)
+        if (!File.Exists(setdir) || File.ReadAllLines("./settings.txt").Length == 0)
         {
             File.Create(setdir).Close();
             return new string[4];
