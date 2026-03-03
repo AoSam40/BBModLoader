@@ -14,7 +14,8 @@ public class pathchecker
 
         foreach (string s in integrity)
         {
-            if (File.Exists(path + s.Replace("/BlazBlue Centralfiction/data", ""))) i++; 
+            string g = s.Replace('\\', '/');
+            if (File.Exists(path + g.Replace("/BlazBlue Centralfiction/data", ""))) i++; 
         }
         percent = i/max*100;
         

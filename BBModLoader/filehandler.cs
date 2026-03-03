@@ -70,7 +70,7 @@ public class filehandler
         bool tempcontent = false;
         string filename = "";
 
-        if (File.Exists("./backup.txt")) movedfiles = File.ReadLines(".\\backup.txt").ToList();
+        if (File.Exists("./backup.txt")) movedfiles = File.ReadLines("./backup.txt").ToList();
         if (movedfiles.Count == 0)
         {
             movedfiles = Directory.GetFiles(temppath, "*.pac", searchOption: SearchOption.AllDirectories).ToList();
