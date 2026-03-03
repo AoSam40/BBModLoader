@@ -95,6 +95,7 @@ Thread.EndCriticalRegion();
 
 if(File.ReadAllLines(".\\backup.txt").Length != 0) settingshand.writesettings("modded?", "y");
 
+settings = settingshand.checksettings();
 
 Process.Start(settings[2] +"\\steam.exe",@"steam://rungameid/586140");
 

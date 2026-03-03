@@ -67,13 +67,28 @@ public class filehandler
 
     public void resetfiles()
     {
+        bool tempcontent = false;
+        string filename = "";
 
         if (File.Exists(".\\backup.txt")) movedfiles = File.ReadLines(".\\backup.txt").ToList();
-        if(movedfiles.Count == 0) movedfiles = Directory.GetFiles(temppath, "*.pac", searchOption: SearchOption.AllDirectories).ToList();
+        if (movedfiles.Count == 0)
+        {
+            movedfiles = Directory.GetFiles(temppath, "*.pac", searchOption: SearchOption.AllDirectories).ToList();
+            tempcontent = true;
+        }
+        
         foreach (string file in movedfiles)
         {
             Console.WriteLine("filehandler.cs: moving " + file);
-            string filename = file.Replace(temppath, gamepath);
+            if (tempcontent)
+            {
+                filename = file.Replace(temppath, gamepath);
+            }
+            else
+            {
+                filename = file;
+            }
+            
             try
             {
                 if (File.Exists(filename.Replace(gamepath, temppath)))
