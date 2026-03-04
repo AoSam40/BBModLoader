@@ -115,7 +115,6 @@ Console.WriteLine("BBCF is running...");
 Processes[0].WaitForExit();
 
 
-Console.Read();
 
 vani:
 
