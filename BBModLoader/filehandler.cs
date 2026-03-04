@@ -96,10 +96,10 @@ public class filehandler
                     File.Move(filename, filename.Replace(gamepath, modpath));
                     File.Move(filename.Replace(gamepath, temppath), filename);
 
-                    //Console.WriteLine("filehandler.cs: moving from " + filename + " to " +
-                                     // filename.Replace(gamepath, modpath));
-                    //Console.WriteLine("filehandler.cs: moving from " + filename.Replace(gamepath, temppath) +
-                        //" to " + filename);
+                    Console.WriteLine("filehandler.cs: moving from " + filename + " to " +
+                                      filename.Replace(gamepath, modpath));
+                    Console.WriteLine("filehandler.cs: moving from " + filename.Replace(gamepath, temppath) +
+                        " to " + filename);
                 }
                 else
                 {

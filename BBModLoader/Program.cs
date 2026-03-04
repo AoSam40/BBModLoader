@@ -73,12 +73,12 @@ if (newset || settings[1] == "BBCF folder: ")
 }
 if (newset || settings[2] == "Steam folder: ")
 {
-    Console.WriteLine("Please enter Steam folder path (folder where 'Steam.exe' is located)");
+    Console.WriteLine("Please enter Steam folder path (folder where 'Steam.sh' is located)");
     readsteam:
     string entry = Console.ReadLine();
     if (pathchecker.checksteam(entry))
     {
-        Console.WriteLine("make sure to select the Steam folder with steam.exe in it");
+        Console.WriteLine("make sure to select the Steam folder with steam.sh in it");
         goto readsteam;
     }
     settingshand.writesettings("steam", entry);
@@ -113,6 +113,9 @@ Console.WriteLine(".");
 Console.WriteLine("BBCF is running...");
 
 Processes[0].WaitForExit();
+
+
+Console.Read();
 
 vani:
 
